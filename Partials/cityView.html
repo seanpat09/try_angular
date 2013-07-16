@@ -1,0 +1,10 @@
+<h3>City View</h3>
+<div class="container">
+	Search by City:
+	<br />
+	<input type="text" ng-model="search.city">
+	<br />
+	<ul>
+		<li ng-repeat="cust in customers | filter:search | orderBy:'city'"> {{ cust.city }} - {{ cust.name }} </li>
+	</ul>
+</div>

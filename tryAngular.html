@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="customerApp">
+	<head>
+		<title>Angular Demo</title>
+	<head>
+	<body>
+		<!--
+		<h1>Angular Demo</h1>
+		<div class="name">
+			Name: <input type="text" ng-model="name" /> Your username: {{ name }}.sunnova
+		</div>
+		<div class="nameList" data-ng-init="names=['Sean', 'Kristen', 'Adrian', 'Tyler']">
+			<ul>
+				<li data-ng-repeat="personName in names">{{ personName }}</li>
+			</ul>
+		</div>
+
+		<div class="search">
+			Search: <input type="text" ng-model="query" />
+		</div>
+		<div class="customerList" data-ng-controller="CustomerController">
+			<h3>Customer List</h3>
+			<ul>
+				<li data-ng-repeat="cust in customers | filter:query">
+					{{ cust.name }} - {{ cust.city }}
+				</li>
+			</ul>
+		</div>
+		-->
+		<div>
+			<div data-ng-view=""></div>
+		</div>
+		<div>
+			<a href="#/">Customers</a> | <a href="#/cities">Cities</a>
+		</div>	
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	<script>
+		var customerApp = angular.module('customerApp', []);
+
+		customerApp.config(function ($routeProvider) {
+			$routeProvider
+				.when('/',
+					{
+						controller: 'CustomerController',
+						templateUrl: 'Partials/customerView.html'
+					})
+				.when('/cities',
+					{
+						controller: 'CustomerController',
+						templateUrl: 'Partials/cityView.html'
+					})
+				.otherwise({ redirectTo: '/' });
+			});
+
+		customerApp.controller('CustomerController', function ($scope){
+			$scope.customers = [
+				{ name: 'Sean', city: 'Denver' },
+				{ name: 'Kristen', city: 'Detroit' },
+				{ name: 'Adrian', city: 'Chicago' },
+				{ name: 'Tyler', city: 'New York' }
+			];
+		
+			$scope.addCustomer = function () {
+				$scope.customers.push(
+					{ 
+						name: $scope.newCustomer.name,
+						city: $scope.newCustomer.city
+					});
+			};
+		});
+	</script>
+</html>
